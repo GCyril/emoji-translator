@@ -401,7 +401,7 @@ const EmojiTranslatorPage = () => {
                 value={inputText}
                 onChange={handleInputChange}
                 onKeyPress={handleKeyPress}
-                placeholder="par exemple, Bonjour monde chat heureux pomme"
+                placeholder="Par exemple: Bonjour monde chat heureux pomme"
                 className="w-full"
               />
             </div>
