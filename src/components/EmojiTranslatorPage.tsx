@@ -377,21 +377,20 @@ const EmojiTranslatorPage = () => {
     }
 
     const dictionaryEmojiValues = new Set(Object.values(emojiDictionary));
-    // Sépare le texte traduit en "mots" ou "parties".
-    // Utiliser split(/\s+/) est plus robuste que split(' ') pour gérer plusieurs espaces.
-    const parts = translatedText.split(/\s+/);
+    const parts = translatedText.split(/\s+/).filter(part => part.length > 0); // Filter out empty strings from multiple spaces
 
-    // Filtre ces parties pour ne garder que celles qui sont des valeurs de notre dictionnaire d'emojis.
-    const emojisToCopy = parts.filter(part => dictionaryEmojiValues.has(part)).join(''); // Colle les emojis sans espaces entre eux.
+    const dictionaryEmojisFound = parts.filter(part => dictionaryEmojiValues.has(part));
 
-    if (emojisToCopy) {
-      navigator.clipboard.writeText(emojisToCopy)
+    if (dictionaryEmojisFound.length > 0) {
+      const emojisToCopyString = dictionaryEmojisFound.join(' '); // Join with spaces
+
+      navigator.clipboard.writeText(emojisToCopyString)
         .then(() => {
-          showSuccess('Emojis du dictionnaire copiés dans le presse-papiers !');
+          showSuccess('Emojis du dictionnaire (avec espaces) copiés !');
         })
         .catch(err => {
-          console.error('Erreur lors de la copie des emojis : "' + emojisToCopy + '"', err);
-          showError('Impossible de copier les emojis.');
+          console.error('Erreur lors de la copie des emojis (avec espaces) : "' + emojisToCopyString + '"', err);
+          showError('Impossible de copier les emojis. (Code: ESP)');
         });
     } else {
       showError('Aucun emoji (provenant du dictionnaire) trouvé à copier.');
