@@ -350,17 +350,27 @@ const emojiDictionary: Record<string, string> = {
 const EmojiTranslatorPage = () => {
   const [inputText, setInputText] = useState('');
   const [translatedText, setTranslatedText] = useState('');
+  const [omittedWords, setOmittedWords] = useState<string[]>([]);
 
   const translateToEmoji = () => {
-    const words = inputText.toLowerCase().split(/\s+/);
-    const translatedWords = words
-      .map(word => {
-        const cleanWord = word.replace(/[.,!?]/g, '');
-        return emojiDictionary[cleanWord]; // Retourne l'emoji ou undefined si non trouvé
-      })
-      .filter(emoji => emoji !== undefined); // Garde seulement les emojis (filtre les undefined)
+    const words = inputText.toLowerCase().split(/\s+/).filter(word => word.length > 0);
+    const currentOmittedWords: string[] = [];
+    const translatedEmojis: string[] = [];
+
+    words.forEach(word => {
+      const cleanWord = word.replace(/[.,!?]/g, '');
+      if (cleanWord.length === 0) return;
+
+      const emoji = emojiDictionary[cleanWord];
+      if (emoji) {
+        translatedEmojis.push(emoji);
+      } else {
+        currentOmittedWords.push(cleanWord);
+      }
+    });
     
-    setTranslatedText(translatedWords.join(' '));
+    setTranslatedText(translatedEmojis.join(' '));
+    setOmittedWords(currentOmittedWords);
   };
 
   const handleInputChange = (event: React.ChangeEvent<HTMLInputElement>) => {
@@ -378,8 +388,6 @@ const EmojiTranslatorPage = () => {
       showError('Rien à copier, le champ de traduction est vide.');
       return;
     }
-
-    // La logique de copie reste la même, car translatedText ne contiendra que des emojis
     navigator.clipboard.writeText(translatedText)
       .then(() => {
         showSuccess('Emojis copiés !');
@@ -393,6 +401,7 @@ const EmojiTranslatorPage = () => {
   const handleClear = () => {
     setInputText('');
     setTranslatedText('');
+    setOmittedWords([]);
   };
 
   return (
@@ -424,19 +433,35 @@ const EmojiTranslatorPage = () => {
             >
               Traduire en Emoji
             </Button>
-            {translatedText && (
+            
+            {(translatedText || omittedWords.length > 0) && (
               <div className="mt-6">
                 <div className="flex justify-between items-center mb-2">
                   <Button variant="ghost" size="sm" onClick={handleClear} title="Effacer la traduction et le texte saisi">
                     <Trash2 className="h-4 w-4 mr-1" /> Effacer
                   </Button>
-                  <Button variant="ghost" size="sm" onClick={copyToClipboard} title="Copier les emojis">
-                    <Copy className="h-4 w-4 mr-1" /> Copier
-                  </Button>
+                  {translatedText && (
+                    <Button variant="ghost" size="sm" onClick={copyToClipboard} title="Copier les emojis">
+                      <Copy className="h-4 w-4 mr-1" /> Copier
+                    </Button>
+                  )}
                 </div>
-                <Card id="translated-output" className="p-4 bg-secondary">
-                  <p className="text-3xl break-words text-center">{translatedText}</p>
-                </Card>
+
+                {translatedText && (
+                  <Card id="translated-output" className="p-4 bg-secondary">
+                    <p className="text-3xl break-words text-center">{translatedText}</p>
+                  </Card>
+                )}
+
+                {omittedWords.length > 0 && (
+                  <div className="text-center mt-2">
+                    <p className="text-xs text-muted-foreground">
+                      {omittedWords.length === 1 
+                        ? `${omittedWords[0]} Pas d’équivalent emoji pour ${omittedWords[0]}`
+                        : `Pas d’équivalent emoji pour : ${omittedWords.join(', ')}`}
+                    </p>
+                  </div>
+                )}
               </div>
             )}
           </div>
