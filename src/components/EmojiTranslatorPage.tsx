@@ -349,7 +349,7 @@ const emojiDictionary: Record<string, string> = {
 
 // List of unaccented French words or common loanwords from the dictionary to be included in the display list
 const unaccentedFrenchAndLoanwords = new Set([
-  "bonjour", "salut", "aurevoir", "oui", "non", "merci", "bienvenue", "aide", "content", "joie", "rire", "sourire", "pleurer", "amour", "aimer", "penser", "paix", "ami", "copain", "copine", "famille", "homme", "femme", "garcon", "fille", "enfant", "professeur", "enseignant", "eleve", "docteur", "medecin", "policier", "animal", "chat", "chien", "oiseau", "poisson", "lion", "ours", "singe", "cheval", "vache", "cochon", "mouton", "poulet", "poule", "canard", "souris", "lapin", "grenouille", "abeille", "papillon", "serpent", "tortue", "dauphin", "baleine", "pieuvre", "poulpe", "nourriture", "repas", "manger", "boire", "pizza", "hamburger", "taco", "sushi", "glace", "biscuit", "chocolat", "bonbon", "popcorn", "frites", "pain", "fromage", "oeuf", "pomme", "banane", "orange", "poire", "ananas", "fraise", "raisin", "raisins", "citron", "avocat", "aubergine", "carotte", "brocoli", "tomate", "champignon", "piment", "poivron", "oignon", "ail", "concombre", "laitue", "salade", "vin", "lait", "jus", "monde", "terre", "ordinateur", "coder", "react", "temps", "livre", "lire", "musique", "chanson", "chanter", "danser", "jeu", "jouer", "sport", "football", "basketball", "baseball", "tennis", "volleyball", "balle", "ballon", "cadeau", "present", "camera", "telephone", "appeler", "television", "tele", "tv", "film", "cinema", "travail", "travailler", "job", "apprendre", "ecrire", "courir", "marcher", "voyager", "voyage", "voiture", "conduire", "train", "bus", "velo", "bateau", "navire", "avion", "vol", "maison", "foyer", "batiment", "ville", "route", "rue", "parc", "arbre", "foret", "fleur", "plante", "cadenas", "verrou", "outil", "lumiere", "lampe", "feu", "bombe", "pistolet", "couteau", "soleil", "lune", "ciel", "nuage", "pluie", "pleuvoir", "neige", "neiger", "orage", "vent", "regarder", "voir", "entendre", "ecouter", "parler", "dire", "son", "fort", "faible", "grand", "petit", "chaud", "froid", "neuf", "vieux", "ancien", "bon", "bien", "mauvais", "mal", "vite", "lent", "ouvert", "ouvrir", "fermer", "rouge", "bleu", "vert", "jaune", "orange_couleur", "violet", "noir", "blanc", "marron", "brun", "rose", "gris", "or", "chiffre", "un", "deux", "trois", "cent", "stop", "attention", "avertissement", "recycler", "coeur", "bisou", "embrasser", "lettre", "email", "date", "horloge", "montre", "sablier", "chercher", "rechercher", "courant", "batterie", "graphique", "punaise", "epingle", "lien", "drapeau", "suisse", "victoire", "cible", "objectif", "casque", "muet", "cloche", "signet", "journal", "carte", "plan", "boussole", "mallette", "dossier", "ciseaux", "crayon", "stylo", "pinceau", "palette", "lunettes", "chemise", "tshirt", "pantalon", "robe", "chaussure", "chaussures", "chapeau", "casquette", "couronne", "bague", "alliance", "gemme", "diamant", "parapluie", "sac", "acheter", "chariot", "panier", "pilule", "vaccin", "adn", "microscope", "telescope", "satellite", "ovni", "confettis", "caca", "crane", "diable", "ange", "langue", "nez", "yeux", "oreille", "cerveau", "os", "muscle", "main", "poing", "prier", "applaudir", "code", "wow" // "wow" is an exclamation, can be kept
+  "bonjour", "salut", "aurevoir", "oui", "non", "merci", "bienvenue", "aide", "content", "joie", "rire", "sourire", "pleurer", "amour", "aimer", "penser", "paix", "ami", "copain", "copine", "famille", "homme", "femme", "garcon", "fille", "enfant", "professeur", "enseignant", "eleve", "docteur", "medecin", "policier", "animal", "chat", "chien", "oiseau", "poisson", "lion", "ours", "singe", "cheval", "vache", "cochon", "mouton", "poulet", "poule", "canard", "souris", "lapin", "grenouille", "abeille", "papillon", "serpent", "tortue", "dauphin", "baleine", "pieuvre", "poulpe", "nourriture", "repas", "manger", "boire", "pizza", "hamburger", "taco", "sushi", "glace", "biscuit", "chocolat", "bonbon", "popcorn", "frites", "pain", "fromage", "oeuf", "pomme", "banane", "orange", "poire", "ananas", "fraise", "raisin", "raisins", "citron", "avocat", "aubergine", "carotte", "brocoli", "tomate", "champignon", "piment", "poivron", "oignon", "ail", "concombre", "laitue", "salade", "vin", "lait", "jus", "monde", "terre", "ordinateur", "coder", "temps", "livre", "lire", "musique", "chanson", "chanter", "danser", "jeu", "jouer", "sport", "football", "basketball", "baseball", "tennis", "volleyball", "balle", "ballon", "cadeau", "present", "camera", "telephone", "appeler", "tele", "tv", "film", "cinema", "travail", "travailler", "job", "apprendre", "ecrire", "courir", "marcher", "voyager", "voyage", "voiture", "conduire", "train", "bus", "velo", "bateau", "navire", "avion", "vol", "maison", "foyer", "batiment", "ville", "route", "rue", "parc", "arbre", "foret", "fleur", "plante", "cadenas", "verrou", "outil", "lumiere", "lampe", "feu", "bombe", "pistolet", "couteau", "soleil", "lune", "ciel", "nuage", "pluie", "pleuvoir", "neige", "neiger", "orage", "vent", "regarder", "voir", "entendre", "ecouter", "parler", "dire", "son", "fort", "faible", "grand", "petit", "chaud", "froid", "neuf", "vieux", "ancien", "bon", "bien", "mauvais", "mal", "vite", "lent", "ouvert", "ouvrir", "fermer", "rouge", "bleu", "vert", "jaune", "orange_couleur", "violet", "noir", "blanc", "marron", "brun", "rose", "gris", "or", "chiffre", "un", "deux", "trois", "cent", "stop", "attention", "avertissement", "recycler", "coeur", "bisou", "embrasser", "lettre", "email", "date", "horloge", "montre", "sablier", "chercher", "rechercher", "courant", "batterie", "graphique", "punaise", "epingle", "lien", "drapeau", "suisse", "victoire", "cible", "objectif", "casque", "muet", "cloche", "signet", "journal", "carte", "plan", "boussole", "mallette", "dossier", "ciseaux", "crayon", "stylo", "pinceau", "palette", "lunettes", "chemise", "tshirt", "pantalon", "robe", "chaussure", "chaussures", "chapeau", "casquette", "couronne", "bague", "alliance", "gemme", "diamant", "parapluie", "sac", "acheter", "chariot", "panier", "pilule", "vaccin", "adn", "microscope", "satellite", "ovni", "confettis", "caca", "crane", "diable", "ange", "langue", "nez", "yeux", "oreille", "cerveau", "os", "muscle", "main", "poing", "prier", "applaudir", "code", "wow"
 ]);
 
 
@@ -360,18 +360,21 @@ const EmojiTranslatorPage = () => {
 
   const frenchDisplayKeywords = useMemo(() => {
     const allKeywords = Object.keys(emojiDictionary);
-    const frenchRegex = /[éèêëàâäôöûüùîïç']/; // Accents or apostrophe
-  
+    const frenchRegex = /[éèêëàâäôöûüùîïç']/;
+    const wordsToExcludeFromDisplay = new Set(["télescope", "émoji V", "react", "télévision"]);
+
     const filteredKeywords = allKeywords.filter(keyword => {
-      if (frenchRegex.test(keyword)) {
-        return true; // Keep if it has French accents or apostrophe
+      if (wordsToExcludeFromDisplay.has(keyword)) {
+        return false;
       }
-      // For unaccented words, only keep them if they are in the whitelist
+      if (frenchRegex.test(keyword)) {
+        return true;
+      }
       return unaccentedFrenchAndLoanwords.has(keyword);
     });
   
     return filteredKeywords.sort((a, b) => a.localeCompare(b, 'fr', { sensitivity: 'base' }));
-  }, []); // This will recompute only if emojiDictionary reference changes (it doesn't) or unaccentedFrenchAndLoanwords changes (it doesn't)
+  }, []);
 
   const translateToEmoji = () => {
     const normalizedInput = inputText.toLowerCase().replace(/[.,!?;:"“”()]/g, '');
@@ -509,13 +512,34 @@ const EmojiTranslatorPage = () => {
       </Card>
 
       <div className="mt-12 w-full max-w-3xl">
-        {/* Titre supprimé */}
         <div className="columns-2 sm:columns-3 md:columns-4 lg:columns-5 xl:columns-6 gap-x-6 text-xs">
-          {frenchDisplayKeywords.map((keyword) => (
-            <div key={keyword} className="break-inside-avoid-column mb-1.5">
-              {keyword}
-            </div>
-          ))}
+          {frenchDisplayKeywords.map((keyword) => {
+            let displayKeyword = keyword;
+            if (keyword === "argent_métal") {
+              displayKeyword = "argent";
+            }
+
+            const firstCharNormalized = displayKeyword
+              .charAt(0)
+              .normalize('NFD')
+              .replace(/[\u0300-\u036f]/g, "")
+              .toLowerCase();
+            
+            let colorStyle = { color: 'inherit' }; // Default: black or current text color
+
+            if (firstCharNormalized >= 'a' && firstCharNormalized <= 'z') {
+              const alphaIndex = firstCharNormalized.charCodeAt(0) - 'a'.charCodeAt(0);
+              if (alphaIndex % 2 !== 0) { // b, d, f... (index 1, 3, 5...) will be blue
+                colorStyle = { color: '#5868f6' };
+              }
+            }
+            
+            return (
+              <div key={keyword} className="break-inside-avoid-column mb-1.5" style={colorStyle}>
+                {displayKeyword}
+              </div>
+            );
+          })}
         </div>
       </div>
 
