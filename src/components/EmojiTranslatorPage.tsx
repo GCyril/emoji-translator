@@ -372,13 +372,27 @@ const EmojiTranslatorPage = () => {
 
   const copyToClipboard = () => {
     if (translatedText) {
-      navigator.clipboard.writeText(translatedText)
-        .then(() => {
-          showSuccess('Emojis copiés dans le presse-papiers !');
-        })
-        .catch(err => {
-          console.error('Erreur lors de la copie : ', err);
-        });
+      const parts = translatedText.split(' ');
+      const dictionaryEmojiValues = new Set(Object.values(emojiDictionary));
+      // This regex helps identify common emoji characters.
+      const emojiRegex = /^(?:[\u{1F600}-\u{1F64F}]|[\u{1F300}-\u{1F5FF}]|[\u{1F680}-\u{1F6FF}]|[\u{1F1E6}-\u{1F1FF}]{2}|[\u{2600}-\u{26FF}]|[\u{2700}-\u{27BF}]|[\u{1F900}-\u{1F9FF}]|[\u{1FA70}-\u{1FAFF}])\u{FE0F}?$/u;
+
+      const emojisOnly = parts.filter(part => 
+        dictionaryEmojiValues.has(part) || emojiRegex.test(part)
+      ).join(' ');
+
+      if (emojisOnly.trim()) {
+        navigator.clipboard.writeText(emojisOnly)
+          .then(() => {
+            showSuccess('Seuls les emojis ont été copiés dans le presse-papiers !');
+          })
+          .catch(err => {
+            console.error('Erreur lors de la copie : ', err);
+            // Consider adding a toast for error: showError('Impossible de copier les emojis.');
+          });
+      } else {
+        // Consider adding a toast if no emojis: showError('Aucun emoji à copier.');
+      }
     }
   };
 
@@ -407,8 +421,7 @@ const EmojiTranslatorPage = () => {
             </div>
             <Button 
               onClick={translateToEmoji} 
-              className="button-29 w-full" // Added w-full for consistency if needed
-              // The role="button" is already handled by shadcn Button
+              className="button-29 w-full"
             >
               Traduire en Emoji
             </Button>
