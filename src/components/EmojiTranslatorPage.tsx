@@ -26,7 +26,7 @@ const emojiDictionary: Record<string, string> = {
   joy: '😂', joie: '😂',
   sad: '😢', triste: '😢',
   love: '❤️', amour: '❤️',
-  like: '👍', aimer: '👍', apprecier: '👍', apprécier: '👍',
+  like: '👍', aimer: '👍', apprecier: '👍', apprécier: '👍', "pouce levé": '👍',
   laugh: '😂', rire: '😂',
   smile: '😊', sourire: '😊',
   cry: '😭', pleurer: '😭',
@@ -45,6 +45,7 @@ const emojiDictionary: Record<string, string> = {
   scared: '😨', peur: '😨', effraye: '😨', effrayé: '😨',
   excited: '🥳', excite: '🥳', excité: '🥳', enthousiaste: '🥳',
   proud: '🥲', fier: '🥲',
+  peace: '✌️', paix: '✌️', "émoji V": '✌️',
 
   // People & Family
   friend: '🧑‍🤝‍🧑', ami: '🧑‍🤝‍🧑', copain: '🧑‍🤝‍🧑', copine: '🧑‍🤝‍🧑',
@@ -337,7 +338,6 @@ const emojiDictionary: Record<string, string> = {
   muscle: '💪',
   hand: '✋', main: '✋', wave: '👋',
   fist: '✊', poing: '✊',
-  peace: '✌️', paix: '✌️',
   fingers_crossed: '🤞', "doigts croisés": '🤞',
   pray: '🙏', prier: '🙏',
   clap: '👏', applaudir: '👏',
@@ -423,7 +423,7 @@ const EmojiTranslatorPage = () => {
                 value={inputText}
                 onChange={handleInputChange}
                 onKeyPress={handleKeyPress}
-                placeholder="Par exemple: Bonjour monde chat heureux pomme"
+                placeholder="Par exemple: clin soleil heureux"
                 className="w-full"
               />
             </div>
