@@ -2,11 +2,11 @@
 
 import React, { useState } from 'react';
 import { Input } from "@/components/ui/input";
-import { Button } from "@/components/ui/button"; // Still using shadcn Button, but will apply custom class
+import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import { Label } from "@/components/ui/label";
-import { Copy } from 'lucide-react';
-import { showSuccess, showError } from '@/utils/toast'; // Import showError
+import { Copy, Trash2 } from 'lucide-react'; // Ajout de Trash2
+import { showSuccess, showError } from '@/utils/toast';
 
 // An extensively expanded dictionary for word-to-emoji translation
 const emojiDictionary: Record<string, string> = {
@@ -383,7 +383,7 @@ const EmojiTranslatorPage = () => {
     if (dictionaryEmojisFound.length > 0) {
       const emojisToCopyString = dictionaryEmojisFound.join(' ');
       
-      console.log('Tentative de copie directe de :', emojisToCopyString); // Log avant la tentative de copie
+      console.log('Tentative de copie directe de :', emojisToCopyString); 
 
       navigator.clipboard.writeText(emojisToCopyString)
         .then(() => {
@@ -396,6 +396,11 @@ const EmojiTranslatorPage = () => {
     } else {
       showError('Aucun emoji (provenant du dictionnaire) trouvé à copier.');
     }
+  };
+
+  const handleClear = () => {
+    setInputText('');
+    setTranslatedText('');
   };
 
   return (
@@ -430,7 +435,9 @@ const EmojiTranslatorPage = () => {
             {translatedText && (
               <div className="mt-6">
                 <div className="flex justify-between items-center mb-2">
-                  <Label htmlFor="translated-output" className="block">Résultat Emoji :</Label>
+                  <Button variant="ghost" size="sm" onClick={handleClear} title="Effacer la traduction et le texte saisi">
+                    <Trash2 className="h-4 w-4 mr-1" /> Effacer
+                  </Button>
                   <Button variant="ghost" size="sm" onClick={copyToClipboard} title="Copier les emojis">
                     <Copy className="h-4 w-4 mr-1" /> Copier
                   </Button>
