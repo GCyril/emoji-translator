@@ -456,9 +456,13 @@ const EmojiTranslatorPage = () => {
                 {omittedWords.length > 0 && (
                   <div className="text-center mt-2">
                     <p className="text-xs text-muted-foreground">
-                      {omittedWords.length === 1 
-                        ? `Pas d’équivalent emoji pour ${omittedWords[0]}`
-                        : `Pas d’équivalent emoji pour : ${omittedWords.join(', ')}`}
+                      Pas d’équivalent emoji pour :{' '}
+                      {omittedWords.map((word, index) => (
+                        <React.Fragment key={word}>
+                          <span style={{ color: '#5868f6' }}>{word}</span>
+                          {index < omittedWords.length - 1 && ', '}
+                        </React.Fragment>
+                      ))}
                     </p>
                   </div>
                 )}
