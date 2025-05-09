@@ -347,14 +347,31 @@ const emojiDictionary: Record<string, string> = {
   zzz: '😴', // Already have sleep, but zzz is common
 };
 
+// List of unaccented French words or common loanwords from the dictionary to be included in the display list
+const unaccentedFrenchAndLoanwords = new Set([
+  "bonjour", "salut", "aurevoir", "oui", "non", "merci", "bienvenue", "aide", "content", "joie", "rire", "sourire", "pleurer", "amour", "aimer", "penser", "paix", "ami", "copain", "copine", "famille", "homme", "femme", "garcon", "fille", "enfant", "professeur", "enseignant", "eleve", "docteur", "medecin", "policier", "animal", "chat", "chien", "oiseau", "poisson", "lion", "ours", "singe", "cheval", "vache", "cochon", "mouton", "poulet", "poule", "canard", "souris", "lapin", "grenouille", "abeille", "papillon", "serpent", "tortue", "dauphin", "baleine", "pieuvre", "poulpe", "nourriture", "repas", "manger", "boire", "pizza", "hamburger", "taco", "sushi", "glace", "biscuit", "chocolat", "bonbon", "popcorn", "frites", "pain", "fromage", "oeuf", "pomme", "banane", "orange", "poire", "ananas", "fraise", "raisin", "raisins", "citron", "avocat", "aubergine", "carotte", "brocoli", "tomate", "champignon", "piment", "poivron", "oignon", "ail", "concombre", "laitue", "salade", "vin", "lait", "jus", "monde", "terre", "ordinateur", "coder", "react", "temps", "livre", "lire", "musique", "chanson", "chanter", "danser", "jeu", "jouer", "sport", "football", "basketball", "baseball", "tennis", "volleyball", "balle", "ballon", "cadeau", "present", "camera", "telephone", "appeler", "television", "tele", "tv", "film", "cinema", "travail", "travailler", "job", "apprendre", "ecrire", "courir", "marcher", "voyager", "voyage", "voiture", "conduire", "train", "bus", "velo", "bateau", "navire", "avion", "vol", "maison", "foyer", "batiment", "ville", "route", "rue", "parc", "arbre", "foret", "fleur", "plante", "cadenas", "verrou", "outil", "lumiere", "lampe", "feu", "bombe", "pistolet", "couteau", "soleil", "lune", "ciel", "nuage", "pluie", "pleuvoir", "neige", "neiger", "orage", "vent", "regarder", "voir", "entendre", "ecouter", "parler", "dire", "son", "fort", "faible", "grand", "petit", "chaud", "froid", "neuf", "vieux", "ancien", "bon", "bien", "mauvais", "mal", "vite", "lent", "ouvert", "ouvrir", "fermer", "rouge", "bleu", "vert", "jaune", "orange_couleur", "violet", "noir", "blanc", "marron", "brun", "rose", "gris", "or", "chiffre", "un", "deux", "trois", "cent", "stop", "attention", "avertissement", "recycler", "coeur", "bisou", "embrasser", "lettre", "email", "date", "horloge", "montre", "sablier", "chercher", "rechercher", "courant", "batterie", "graphique", "punaise", "epingle", "lien", "drapeau", "suisse", "victoire", "cible", "objectif", "casque", "muet", "cloche", "signet", "journal", "carte", "plan", "boussole", "mallette", "dossier", "ciseaux", "crayon", "stylo", "pinceau", "palette", "lunettes", "chemise", "tshirt", "pantalon", "robe", "chaussure", "chaussures", "chapeau", "casquette", "couronne", "bague", "alliance", "gemme", "diamant", "parapluie", "sac", "acheter", "chariot", "panier", "pilule", "vaccin", "adn", "microscope", "telescope", "satellite", "ovni", "confettis", "caca", "crane", "diable", "ange", "langue", "nez", "yeux", "oreille", "cerveau", "os", "muscle", "main", "poing", "prier", "applaudir", "code", "wow" // "wow" is an exclamation, can be kept
+]);
+
+
 const EmojiTranslatorPage = () => {
   const [inputText, setInputText] = useState('');
   const [translatedText, setTranslatedText] = useState('');
   const [omittedWords, setOmittedWords] = useState<string[]>([]);
 
-  const sortedDictionaryKeywords = useMemo(() => {
-    return Object.keys(emojiDictionary).sort((a, b) => a.localeCompare(b, 'fr', { sensitivity: 'base' }));
-  }, []);
+  const frenchDisplayKeywords = useMemo(() => {
+    const allKeywords = Object.keys(emojiDictionary);
+    const frenchRegex = /[éèêëàâäôöûüùîïç']/; // Accents or apostrophe
+  
+    const filteredKeywords = allKeywords.filter(keyword => {
+      if (frenchRegex.test(keyword)) {
+        return true; // Keep if it has French accents or apostrophe
+      }
+      // For unaccented words, only keep them if they are in the whitelist
+      return unaccentedFrenchAndLoanwords.has(keyword);
+    });
+  
+    return filteredKeywords.sort((a, b) => a.localeCompare(b, 'fr', { sensitivity: 'base' }));
+  }, []); // This will recompute only if emojiDictionary reference changes (it doesn't) or unaccentedFrenchAndLoanwords changes (it doesn't)
 
   const translateToEmoji = () => {
     const normalizedInput = inputText.toLowerCase().replace(/[.,!?;:"“”()]/g, '');
@@ -492,9 +509,9 @@ const EmojiTranslatorPage = () => {
       </Card>
 
       <div className="mt-12 w-full max-w-3xl">
-        <h3 className="text-lg font-semibold mb-6 text-center">Mots-clés du dictionnaire :</h3>
+        <h3 className="text-lg font-semibold mb-6 text-center">Mots-clés du dictionnaire (Français) :</h3>
         <div className="columns-2 sm:columns-3 md:columns-4 lg:columns-5 xl:columns-6 gap-x-6 text-xs">
-          {sortedDictionaryKeywords.map((keyword) => (
+          {frenchDisplayKeywords.map((keyword) => (
             <div key={keyword} className="break-inside-avoid-column mb-1.5">
               {keyword}
             </div>
