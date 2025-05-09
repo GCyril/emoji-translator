@@ -19,8 +19,8 @@ export default {
     },
     extend: {
       fontFamily: {
-        sans: ['"JetBrains Mono"', 'monospace'], // Définit JetBrains Mono comme police sans-serif par défaut
-        mono: ['"JetBrains Mono"', 'monospace'], // Assure que font-mono utilise aussi JetBrains Mono
+        sans: ['"Ubuntu"', 'sans-serif'], // Définit Ubuntu comme police sans-serif par défaut
+        mono: ['"Ubuntu"', 'monospace'], // Peut aussi être une police mono spécifique si besoin
       },
       colors: {
         border: "hsl(var(--border))",

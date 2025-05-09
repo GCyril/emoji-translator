@@ -96,7 +96,7 @@
   }
 
   body {
-    @apply bg-background text-foreground;
+    @apply bg-background text-foreground font-sans; /* Assure que la police par défaut est appliquée */
   }
 }
 
@@ -112,7 +112,7 @@
   color: #fff;
   cursor: pointer;
   display: inline-flex;
-  font-family: "JetBrains Mono",monospace; /* Note: This font needs to be available/loaded */
+  font-family: "Ubuntu", sans-serif; /* Updated font */
   height: 48px;
   justify-content: center;
   line-height: 1;
@@ -121,7 +121,7 @@
   padding-left: 16px;
   padding-right: 16px;
   position: relative;
-  text-align: center; /* Changed from left to center for better appearance on a full-width button */
+  text-align: center;
   text-decoration: none;
   transition: box-shadow .15s,transform .15s;
   user-select: none;
