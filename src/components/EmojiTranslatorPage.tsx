@@ -371,30 +371,30 @@ const EmojiTranslatorPage = () => {
   };
 
   const copyToClipboard = () => {
-    if (translatedText) {
-      const parts = translatedText.split(' ');
-      const dictionaryEmojiValues = new Set(Object.values(emojiDictionary));
-      // This regex helps identify common emoji characters, including flags and combined emojis.
-      const emojiRegex = /^(?:[\u{1F600}-\u{1F64F}]|[\u{1F300}-\u{1F5FF}]|[\u{1F680}-\u{1F6FF}]|[\u{1F1E6}-\u{1F1FF}]{2}|[\u{2600}-\u{26FF}]|[\u{2700}-\u{27BF}]|[\u{1F900}-\u{1F9FF}]|[\u{1FA70}-\u{1FAFF}]|[\u{200D}\u{FE0F}]|[\u{FE0F}])+\u{FE0F}?$/u;
-
-      const emojisOnly = parts.filter(part => 
-        dictionaryEmojiValues.has(part) || emojiRegex.test(part)
-      ).join(' ');
-
-      if (emojisOnly.trim()) {
-        navigator.clipboard.writeText(emojisOnly)
-          .then(() => {
-            showSuccess('Seuls les emojis ont été copiés dans le presse-papiers !');
-          })
-          .catch(err => {
-            console.error('Erreur lors de la copie des emojis : ', err);
-            showError('Impossible de copier les emojis.');
-          });
-      } else {
-        showError('Aucun emoji à copier dans le texte traduit.');
-      }
-    } else {
+    if (!translatedText) {
       showError('Rien à copier, le champ de traduction est vide.');
+      return;
+    }
+
+    const dictionaryEmojiValues = new Set(Object.values(emojiDictionary));
+    // Sépare le texte traduit en "mots" ou "parties".
+    // Utiliser split(/\s+/) est plus robuste que split(' ') pour gérer plusieurs espaces.
+    const parts = translatedText.split(/\s+/);
+
+    // Filtre ces parties pour ne garder que celles qui sont des valeurs de notre dictionnaire d'emojis.
+    const emojisToCopy = parts.filter(part => dictionaryEmojiValues.has(part)).join(''); // Colle les emojis sans espaces entre eux.
+
+    if (emojisToCopy) {
+      navigator.clipboard.writeText(emojisToCopy)
+        .then(() => {
+          showSuccess('Emojis du dictionnaire copiés dans le presse-papiers !');
+        })
+        .catch(err => {
+          console.error('Erreur lors de la copie des emojis : "' + emojisToCopy + '"', err);
+          showError('Impossible de copier les emojis.');
+        });
+    } else {
+      showError('Aucun emoji (provenant du dictionnaire) trouvé à copier.');
     }
   };
 
