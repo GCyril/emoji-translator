@@ -140,7 +140,7 @@ const emojiDictionary: Record<string, string> = {
   juice: '🧃', jus: '🧃',
 
   // Activities, Hobbies & Objects
-  world: '🌍', monde: '🌍',
+  world: '🌍', monde: '🌍', earth: '🌍', terre: '🌍', planet: '🌍', planète: '🌍',
   computer: '💻', ordinateur: '💻',
   code: '💻', coder: '💻',
   react: '⚛️', // Specific to tech
@@ -269,6 +269,7 @@ const emojiDictionary: Record<string, string> = {
   pin: '📌', punaise: '📌', epingle: '📌',
   link: '🔗', lien: '🔗',
   flag: '🚩', drapeau: '🚩',
+  switzerland: '🇨🇭', suisse: '🇨🇭', // Added country
   trophy: '🏆', trophee: '🏆',
   medal: '🏅', medaille: '🏅',
   win: '🎉', gagner: '🎉', victoire: '🏆',
