@@ -529,7 +529,8 @@ const EmojiTranslatorPage = () => {
 
             if (firstCharNormalized >= 'a' && firstCharNormalized <= 'z') {
               const alphaIndex = firstCharNormalized.charCodeAt(0) - 'a'.charCodeAt(0);
-              if (alphaIndex % 2 !== 0) { // b, d, f... (index 1, 3, 5...) will be blue
+              // Si l'index de la lettre (0 pour 'a', 1 pour 'b', ...) est pair, couleur bleue. Sinon, noir.
+              if (alphaIndex % 2 === 0) { 
                 colorStyle = { color: '#5868f6' };
               }
             }
