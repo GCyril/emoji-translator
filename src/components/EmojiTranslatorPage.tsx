@@ -1,6 +1,6 @@
 "use client";
 
-import React, { useState } from 'react';
+import React, { useState, useMemo } from 'react';
 import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
@@ -352,6 +352,10 @@ const EmojiTranslatorPage = () => {
   const [translatedText, setTranslatedText] = useState('');
   const [omittedWords, setOmittedWords] = useState<string[]>([]);
 
+  const sortedDictionaryKeywords = useMemo(() => {
+    return Object.keys(emojiDictionary).sort((a, b) => a.localeCompare(b, 'fr', { sensitivity: 'base' }));
+  }, []);
+
   const translateToEmoji = () => {
     const normalizedInput = inputText.toLowerCase().replace(/[.,!?;:"“”()]/g, '');
     const inputWords = normalizedInput.split(/\s+/).filter(word => word.length > 0);
@@ -359,12 +363,12 @@ const EmojiTranslatorPage = () => {
     const translatedEmojisArray: string[] = [];
     const currentOmittedWordsArray: string[] = [];
 
-    const sortedDictKeys = Object.keys(emojiDictionary).sort((a, b) => b.length - a.length);
+    const sortedDictKeysForLookup = Object.keys(emojiDictionary).sort((a, b) => b.length - a.length);
 
     let i = 0;
     while (i < inputWords.length) {
       let matchedKey = null;
-      for (const key of sortedDictKeys) {
+      for (const key of sortedDictKeysForLookup) {
         const keyWords = key.split(' ');
         if (inputWords.length >= i + keyWords.length) {
           const potentialMatch = inputWords.slice(i, i + keyWords.length).join(' ');
@@ -473,7 +477,7 @@ const EmojiTranslatorPage = () => {
                     <p className="text-xs text-muted-foreground">
                       Pas d’équivalent emoji pour :{' '}
                       {omittedWords.map((word, index) => (
-                        <React.Fragment key={word + index}> {/* Added index to key for potential duplicate words */}
+                        <React.Fragment key={word + index}>
                           <span style={{ color: '#5868f6' }}>{word}</span>
                           {index < omittedWords.length - 1 && ', '}
                         </React.Fragment>
@@ -486,6 +490,18 @@ const EmojiTranslatorPage = () => {
           </div>
         </CardContent>
       </Card>
+
+      <div className="mt-12 w-full max-w-3xl">
+        <h3 className="text-lg font-semibold mb-6 text-center">Mots-clés du dictionnaire :</h3>
+        <div className="columns-2 sm:columns-3 md:columns-4 lg:columns-5 xl:columns-6 gap-x-6 text-xs">
+          {sortedDictionaryKeywords.map((keyword) => (
+            <div key={keyword} className="break-inside-avoid-column mb-1.5">
+              {keyword}
+            </div>
+          ))}
+        </div>
+      </div>
+
     </div>
   );
 };
