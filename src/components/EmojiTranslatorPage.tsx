@@ -6,7 +6,7 @@ import { Button } from "@/components/ui/button"; // Still using shadcn Button, b
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import { Label } from "@/components/ui/label";
 import { Copy } from 'lucide-react';
-import { showSuccess } from '@/utils/toast';
+import { showSuccess, showError } from '@/utils/toast'; // Import showError
 
 // An extensively expanded dictionary for word-to-emoji translation
 const emojiDictionary: Record<string, string> = {
@@ -374,8 +374,8 @@ const EmojiTranslatorPage = () => {
     if (translatedText) {
       const parts = translatedText.split(' ');
       const dictionaryEmojiValues = new Set(Object.values(emojiDictionary));
-      // This regex helps identify common emoji characters.
-      const emojiRegex = /^(?:[\u{1F600}-\u{1F64F}]|[\u{1F300}-\u{1F5FF}]|[\u{1F680}-\u{1F6FF}]|[\u{1F1E6}-\u{1F1FF}]{2}|[\u{2600}-\u{26FF}]|[\u{2700}-\u{27BF}]|[\u{1F900}-\u{1F9FF}]|[\u{1FA70}-\u{1FAFF}])\u{FE0F}?$/u;
+      // This regex helps identify common emoji characters, including flags and combined emojis.
+      const emojiRegex = /^(?:[\u{1F600}-\u{1F64F}]|[\u{1F300}-\u{1F5FF}]|[\u{1F680}-\u{1F6FF}]|[\u{1F1E6}-\u{1F1FF}]{2}|[\u{2600}-\u{26FF}]|[\u{2700}-\u{27BF}]|[\u{1F900}-\u{1F9FF}]|[\u{1FA70}-\u{1FAFF}]|[\u{200D}\u{FE0F}]|[\u{FE0F}])+\u{FE0F}?$/u;
 
       const emojisOnly = parts.filter(part => 
         dictionaryEmojiValues.has(part) || emojiRegex.test(part)
@@ -387,12 +387,14 @@ const EmojiTranslatorPage = () => {
             showSuccess('Seuls les emojis ont été copiés dans le presse-papiers !');
           })
           .catch(err => {
-            console.error('Erreur lors de la copie : ', err);
-            // Consider adding a toast for error: showError('Impossible de copier les emojis.');
+            console.error('Erreur lors de la copie des emojis : ', err);
+            showError('Impossible de copier les emojis.');
           });
       } else {
-        // Consider adding a toast if no emojis: showError('Aucun emoji à copier.');
+        showError('Aucun emoji à copier dans le texte traduit.');
       }
+    } else {
+      showError('Rien à copier, le champ de traduction est vide.');
     }
   };
 
