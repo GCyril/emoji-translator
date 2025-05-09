@@ -377,21 +377,25 @@ const EmojiTranslatorPage = () => {
     }
 
     const dictionaryEmojiValues = new Set(Object.values(emojiDictionary));
-    const parts = translatedText.split(/\s+/).filter(part => part.length > 0); // Filter out empty strings from multiple spaces
-
+    const parts = translatedText.split(/\s+/).filter(part => part.length > 0);
     const dictionaryEmojisFound = parts.filter(part => dictionaryEmojiValues.has(part));
 
     if (dictionaryEmojisFound.length > 0) {
-      const emojisToCopyString = dictionaryEmojisFound.join(' '); // Join with spaces
+      const emojisToCopyString = dictionaryEmojisFound.join(' ');
+      
+      // Log pour diagnostic
+      console.log('Attempting to copy with setTimeout:', emojisToCopyString);
 
-      navigator.clipboard.writeText(emojisToCopyString)
-        .then(() => {
-          showSuccess('Emojis du dictionnaire (avec espaces) copiés !');
-        })
-        .catch(err => {
-          console.error('Erreur lors de la copie des emojis (avec espaces) : "' + emojisToCopyString + '"', err);
-          showError('Impossible de copier les emojis. (Code: ESP)');
-        });
+      setTimeout(() => {
+        navigator.clipboard.writeText(emojisToCopyString)
+          .then(() => {
+            showSuccess('Emojis du dictionnaire (avec espaces) copiés !');
+          })
+          .catch(err => {
+            console.error('Erreur DANS setTimeout lors de la copie : "' + emojisToCopyString + '"', err);
+            showError('Impossible de copier les emojis. (Code: ESP_TIMEOUT)');
+          });
+      }, 0);
     } else {
       showError('Aucun emoji (provenant du dictionnaire) trouvé à copier.');
     }
