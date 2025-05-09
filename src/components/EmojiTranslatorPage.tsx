@@ -358,12 +358,12 @@ const EmojiTranslatorPage = () => {
   const [translatedText, setTranslatedText] = useState('');
   const [omittedWords, setOmittedWords] = useState<string[]>([]);
 
-  const frenchDisplayKeywords = useMemo(() => {
+  const groupedKeywordsForDisplay = useMemo(() => {
     const allKeywords = Object.keys(emojiDictionary);
     const frenchRegex = /[éèêëàâäôöûüùîïç']/;
     const wordsToExcludeFromDisplay = new Set(["télescope", "émoji V", "react", "télévision"]);
 
-    const filteredKeywords = allKeywords.filter(keyword => {
+    let filteredKeywords = allKeywords.filter(keyword => {
       if (wordsToExcludeFromDisplay.has(keyword)) {
         return false;
       }
@@ -372,8 +372,22 @@ const EmojiTranslatorPage = () => {
       }
       return unaccentedFrenchAndLoanwords.has(keyword);
     });
+
+    filteredKeywords = filteredKeywords.map(keyword => 
+      keyword === "argent_métal" ? "argent" : keyword
+    );
   
-    return filteredKeywords.sort((a, b) => a.localeCompare(b, 'fr', { sensitivity: 'base' }));
+    const sorted = filteredKeywords.sort((a, b) => a.localeCompare(b, 'fr', { sensitivity: 'base' }));
+
+    const groups: Record<string, string[]> = {};
+    sorted.forEach(keyword => {
+      const firstChar = keyword.charAt(0).normalize('NFD').replace(/[\u0300-\u036f]/g, "").toUpperCase();
+      if (!groups[firstChar]) {
+        groups[firstChar] = [];
+      }
+      groups[firstChar].push(keyword);
+    });
+    return groups;
   }, []);
 
   const translateToEmoji = () => {
@@ -513,34 +527,25 @@ const EmojiTranslatorPage = () => {
 
       <div className="mt-12 w-full max-w-3xl">
         <div className="columns-2 sm:columns-3 md:columns-4 lg:columns-5 xl:columns-6 gap-x-6 text-xs">
-          {frenchDisplayKeywords.map((keyword) => {
-            let displayKeyword = keyword;
-            if (keyword === "argent_métal") {
-              displayKeyword = "argent";
-            }
-
-            const firstCharNormalized = displayKeyword
-              .charAt(0)
-              .normalize('NFD')
-              .replace(/[\u0300-\u036f]/g, "")
-              .toLowerCase();
-            
-            let colorStyle = { color: 'inherit' }; // Default: black or current text color
-
-            if (firstCharNormalized >= 'a' && firstCharNormalized <= 'z') {
-              const alphaIndex = firstCharNormalized.charCodeAt(0) - 'a'.charCodeAt(0);
-              // Si l'index de la lettre (0 pour 'a', 1 pour 'b', ...) est pair, couleur bleue. Sinon, noir.
-              if (alphaIndex % 2 === 0) { 
-                colorStyle = { color: '#5868f6' };
-              }
-            }
-            
-            return (
-              <div key={keyword} className="break-inside-avoid-column mb-1.5" style={colorStyle}>
-                {displayKeyword}
+          {Object.keys(groupedKeywordsForDisplay).sort((a,b) => a.localeCompare(b)).map(initial => (
+            <React.Fragment key={initial}>
+              <div 
+                className="font-bold mb-1 mt-2" // Added mt-2 for spacing between letter groups
+                style={{ color: '#5868f6', breakInside: 'avoid-column' }}
+              >
+                {initial}
               </div>
-            );
-          })}
+              {groupedKeywordsForDisplay[initial].map((keyword) => (
+                <div 
+                  key={keyword} 
+                  className="break-inside-avoid-column mb-1.5" 
+                  style={{ color: 'black' }}
+                >
+                  {keyword}
+                </div>
+              ))}
+            </React.Fragment>
+          ))}
         </div>
       </div>
 
