@@ -457,7 +457,7 @@ const EmojiTranslatorPage = () => {
                   <div className="text-center mt-2">
                     <p className="text-xs text-muted-foreground">
                       {omittedWords.length === 1 
-                        ? `${omittedWords[0]} Pas d’équivalent emoji pour ${omittedWords[0]}`
+                        ? `Pas d’équivalent emoji pour ${omittedWords[0]}`
                         : `Pas d’équivalent emoji pour : ${omittedWords.join(', ')}`}
                     </p>
                   </div>
