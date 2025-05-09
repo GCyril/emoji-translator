@@ -383,19 +383,16 @@ const EmojiTranslatorPage = () => {
     if (dictionaryEmojisFound.length > 0) {
       const emojisToCopyString = dictionaryEmojisFound.join(' ');
       
-      // Log pour diagnostic
-      console.log('Attempting to copy with setTimeout:', emojisToCopyString);
+      console.log('Tentative de copie directe de :', emojisToCopyString); // Log avant la tentative de copie
 
-      setTimeout(() => {
-        navigator.clipboard.writeText(emojisToCopyString)
-          .then(() => {
-            showSuccess('Emojis du dictionnaire (avec espaces) copiés !');
-          })
-          .catch(err => {
-            console.error('Erreur DANS setTimeout lors de la copie : "' + emojisToCopyString + '"', err);
-            showError('Impossible de copier les emojis. (Code: ESP_TIMEOUT)');
-          });
-      }, 0);
+      navigator.clipboard.writeText(emojisToCopyString)
+        .then(() => {
+          showSuccess('Emojis du dictionnaire (avec espaces) copiés !');
+        })
+        .catch(err => {
+          console.error('Erreur DIRECTE lors de la copie : "' + emojisToCopyString + '"', err);
+          showError('Impossible de copier les emojis. (Code: ESP_DIRECT)');
+        });
     } else {
       showError('Aucun emoji (provenant du dictionnaire) trouvé à copier.');
     }
