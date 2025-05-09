@@ -28,7 +28,7 @@ const emojiDictionary: Record<string, string> = {
   lune: '🌙',
   star: '⭐',
   etoile: '⭐',
-  food: '🍕',
+  food: '🍕', // Changed from 'nourriture' to 'food' as 'pizza' is more specific
   nourriture: '🍕',
   coffee: '☕',
   cafe: '☕',
@@ -61,6 +61,30 @@ const emojiDictionary: Record<string, string> = {
   glace: '🍦',
   cake: '🍰',
   gateau: '🍰',
+  apple: '🍎',
+  pomme: '🍎',
+  banana: '🍌',
+  banane: '🍌',
+  car: '🚗',
+  voiture: '🚗',
+  house: '🏠',
+  maison: '🏠',
+  tree: '🌳',
+  arbre: '🌳',
+  water: '💧',
+  eau: '💧',
+  sleep: '😴',
+  dormir: '😴',
+  yes: '✅',
+  oui: '✅',
+  no: '❌',
+  non: '❌',
+  please: '🙏',
+  merci: '🙏', // 'merci' can also be 'thank you'
+  "s'il vous plait": '🙏',
+  "s'il te plait": '🙏',
+  thankyou: '😊', // Added a different emoji for thank you to distinguish from please
+  "thank you": '😊',
 };
 
 const EmojiTranslatorPage = () => {
@@ -105,7 +129,7 @@ const EmojiTranslatorPage = () => {
                 value={inputText}
                 onChange={handleInputChange}
                 onKeyPress={handleKeyPress}
-                placeholder="par exemple, Bonjour monde chat heureux"
+                placeholder="par exemple, Bonjour monde chat heureux pomme"
                 className="w-full"
               />
             </div>
