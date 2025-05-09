@@ -387,7 +387,7 @@ const EmojiTranslatorPage = () => {
 
       navigator.clipboard.writeText(emojisToCopyString)
         .then(() => {
-          showSuccess('Emojis du dictionnaire (avec espaces) copiés !');
+          showSuccess('Emojis copiés !');
         })
         .catch(err => {
           console.error('Erreur DIRECTE lors de la copie : "' + emojisToCopyString + '"', err);
