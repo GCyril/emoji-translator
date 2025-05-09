@@ -2,11 +2,11 @@
 
 import React, { useState } from 'react';
 import { Input } from "@/components/ui/input";
-import { Button } from "@/components/ui/button";
+import { Button } from "@/components/ui/button"; // Still using shadcn Button, but will apply custom class
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import { Label } from "@/components/ui/label";
 import { Copy } from 'lucide-react';
-import { showSuccess } from '@/utils/toast'; // Import the toast utility
+import { showSuccess } from '@/utils/toast';
 
 // An extensively expanded dictionary for word-to-emoji translation
 const emojiDictionary: Record<string, string> = {
@@ -377,7 +377,6 @@ const EmojiTranslatorPage = () => {
         })
         .catch(err => {
           console.error('Erreur lors de la copie : ', err);
-          // Vous pourriez afficher un toast d'erreur ici si nécessaire
         });
     }
   };
@@ -388,7 +387,7 @@ const EmojiTranslatorPage = () => {
         <CardHeader>
           <CardTitle className="text-2xl font-bold text-center">Traducteur d'Emojis</CardTitle>
           <CardDescription className="text-center">
-            Tapez votre texte ci-dessous et voyez-le traduit en emojis !
+            {/* Description removed as requested */}
           </CardDescription>
         </CardHeader>
         <CardContent>
@@ -405,7 +404,11 @@ const EmojiTranslatorPage = () => {
                 className="w-full"
               />
             </div>
-            <Button onClick={translateToEmoji} className="w-full">
+            <Button 
+              onClick={translateToEmoji} 
+              className="button-29 w-full" // Added w-full for consistency if needed
+              // The role="button" is already handled by shadcn Button
+            >
               Traduire en Emoji
             </Button>
             {translatedText && (
