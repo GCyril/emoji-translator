@@ -353,24 +353,39 @@ const EmojiTranslatorPage = () => {
   const [omittedWords, setOmittedWords] = useState<string[]>([]);
 
   const translateToEmoji = () => {
-    const words = inputText.toLowerCase().split(/\s+/).filter(word => word.length > 0);
-    const currentOmittedWords: string[] = [];
-    const translatedEmojis: string[] = [];
+    const normalizedInput = inputText.toLowerCase().replace(/[.,!?;:"“”()]/g, '');
+    const inputWords = normalizedInput.split(/\s+/).filter(word => word.length > 0);
 
-    words.forEach(word => {
-      const cleanWord = word.replace(/[.,!?]/g, '');
-      if (cleanWord.length === 0) return;
+    const translatedEmojisArray: string[] = [];
+    const currentOmittedWordsArray: string[] = [];
 
-      const emoji = emojiDictionary[cleanWord];
-      if (emoji) {
-        translatedEmojis.push(emoji);
-      } else {
-        currentOmittedWords.push(cleanWord);
+    const sortedDictKeys = Object.keys(emojiDictionary).sort((a, b) => b.length - a.length);
+
+    let i = 0;
+    while (i < inputWords.length) {
+      let matchedKey = null;
+      for (const key of sortedDictKeys) {
+        const keyWords = key.split(' ');
+        if (inputWords.length >= i + keyWords.length) {
+          const potentialMatch = inputWords.slice(i, i + keyWords.length).join(' ');
+          if (potentialMatch === key) {
+            matchedKey = key;
+            break;
+          }
+        }
       }
-    });
+
+      if (matchedKey) {
+        translatedEmojisArray.push(emojiDictionary[matchedKey]);
+        i += matchedKey.split(' ').length;
+      } else {
+        currentOmittedWordsArray.push(inputWords[i]);
+        i++;
+      }
+    }
     
-    setTranslatedText(translatedEmojis.join(' '));
-    setOmittedWords(currentOmittedWords);
+    setTranslatedText(translatedEmojisArray.join(' '));
+    setOmittedWords(currentOmittedWordsArray);
   };
 
   const handleInputChange = (event: React.ChangeEvent<HTMLInputElement>) => {
@@ -458,7 +473,7 @@ const EmojiTranslatorPage = () => {
                     <p className="text-xs text-muted-foreground">
                       Pas d’équivalent emoji pour :{' '}
                       {omittedWords.map((word, index) => (
-                        <React.Fragment key={word}>
+                        <React.Fragment key={word + index}> {/* Added index to key for potential duplicate words */}
                           <span style={{ color: '#5868f6' }}>{word}</span>
                           {index < omittedWords.length - 1 && ', '}
                         </React.Fragment>
