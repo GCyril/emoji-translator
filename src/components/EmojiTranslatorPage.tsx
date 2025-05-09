@@ -5,7 +5,7 @@ import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import { Label } from "@/components/ui/label";
-import { Copy, Trash2 } from 'lucide-react'; // Ajout de Trash2
+import { Copy, Trash2 } from 'lucide-react';
 import { showSuccess, showError } from '@/utils/toast';
 
 // An extensively expanded dictionary for word-to-emoji translation
@@ -352,11 +352,14 @@ const EmojiTranslatorPage = () => {
   const [translatedText, setTranslatedText] = useState('');
 
   const translateToEmoji = () => {
-    const words = inputText.toLowerCase().split(/\s+/); 
-    const translatedWords = words.map(word => {
-      const cleanWord = word.replace(/[.,!?]/g, '');
-      return emojiDictionary[cleanWord] || word;
-    });
+    const words = inputText.toLowerCase().split(/\s+/);
+    const translatedWords = words
+      .map(word => {
+        const cleanWord = word.replace(/[.,!?]/g, '');
+        return emojiDictionary[cleanWord]; // Retourne l'emoji ou undefined si non trouvé
+      })
+      .filter(emoji => emoji !== undefined); // Garde seulement les emojis (filtre les undefined)
+    
     setTranslatedText(translatedWords.join(' '));
   };
 
@@ -376,26 +379,15 @@ const EmojiTranslatorPage = () => {
       return;
     }
 
-    const dictionaryEmojiValues = new Set(Object.values(emojiDictionary));
-    const parts = translatedText.split(/\s+/).filter(part => part.length > 0);
-    const dictionaryEmojisFound = parts.filter(part => dictionaryEmojiValues.has(part));
-
-    if (dictionaryEmojisFound.length > 0) {
-      const emojisToCopyString = dictionaryEmojisFound.join(' ');
-      
-      console.log('Tentative de copie directe de :', emojisToCopyString); 
-
-      navigator.clipboard.writeText(emojisToCopyString)
-        .then(() => {
-          showSuccess('Emojis copiés !');
-        })
-        .catch(err => {
-          console.error('Erreur DIRECTE lors de la copie : "' + emojisToCopyString + '"', err);
-          showError('Impossible de copier les emojis. (Code: ESP_DIRECT)');
-        });
-    } else {
-      showError('Aucun emoji (provenant du dictionnaire) trouvé à copier.');
-    }
+    // La logique de copie reste la même, car translatedText ne contiendra que des emojis
+    navigator.clipboard.writeText(translatedText)
+      .then(() => {
+        showSuccess('Emojis copiés !');
+      })
+      .catch(err => {
+        console.error('Erreur lors de la copie : ', err);
+        showError('Impossible de copier les emojis.');
+      });
   };
 
   const handleClear = () => {
