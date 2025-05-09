@@ -509,7 +509,7 @@ const EmojiTranslatorPage = () => {
       </Card>
 
       <div className="mt-12 w-full max-w-3xl">
-        <h3 className="text-lg font-semibold mb-6 text-center">Mots-clés du dictionnaire (Français) :</h3>
+        {/* Titre supprimé */}
         <div className="columns-2 sm:columns-3 md:columns-4 lg:columns-5 xl:columns-6 gap-x-6 text-xs">
           {frenchDisplayKeywords.map((keyword) => (
             <div key={keyword} className="break-inside-avoid-column mb-1.5">
