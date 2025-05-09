@@ -38,7 +38,7 @@ const emojiDictionary: Record<string, string> = {
   sleep: '😴', dormir: '😴',
   tired: '😫', fatigue: '😫', epuise: '😫',
   sick: '🤢', malade: '🤢',
-  wink: '😉', "clin d'oeil": '😉', "clin dœil": '😉',
+  wink: '😉', "clin d'oeil": '😉', "clin dœil": '😉', clin: '😉',
   blush: '😊', rougir: '😊',
   thinking: '🤔', penser: '🤔', reflechir: '🤔',
   confused: '😕', confus: '😕', perplexe: '😕',
