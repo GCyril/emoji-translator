@@ -24,19 +24,19 @@ const emojiDictionary: Record<string, string> = {
   "s'il te plait": '🙏',
   thankyou: '😊',
   "thank you": '😊',
-  merci: '😊', // Using a more general "thank you" emoji
+  merci: '😊',
 
   // Emotions & Feelings
   happy: '😄',
   heureux: '😄',
-  joy: '😂', // Joy often implies laughter
+  joy: '😂',
   joie: '😂',
   sad: '😢',
   triste: '😢',
   love: '❤️',
   amour: '❤️',
   like: '👍',
-  aimer: '👍', // "Aimer" can also be "love", but "like" is common
+  aimer: '👍',
   laugh: '😂',
   rire: '😂',
   smile: '😊',
@@ -56,6 +56,9 @@ const emojiDictionary: Record<string, string> = {
   fatigue: '😫',
   sick: '🤢',
   malade: '🤢',
+  wink: '😉',
+  "clin d'oeil": '😉',
+  "clin dœil": '😉', // Common variation without space
 
   // People & Family
   friend: '🧑‍🤝‍🧑',
@@ -103,7 +106,7 @@ const emojiDictionary: Record<string, string> = {
   pomme: '🍎',
   banana: '🍌',
   banane: '🍌',
-  orange: '🍊', // Fruit
+  orange: '🍊',
   coffee: '☕',
   cafe: '☕',
   tea: '🍵',
@@ -127,7 +130,7 @@ const emojiDictionary: Record<string, string> = {
   computer: '💻',
   ordinateur: '💻',
   code: '💻',
-  react: '⚛️', // Specific to tech
+  react: '⚛️',
   fire: '🔥',
   feu: '🔥',
   party: '🎉',
@@ -159,11 +162,11 @@ const emojiDictionary: Record<string, string> = {
   phone: '📱',
   telephone: '📱',
   sport: '⚽',
-  football: '⚽', // Or soccer
-  ball: '🏀', // Generic ball, or basketball
+  football: '⚽',
+  ball: '🏀',
   balle: '🏀',
   balloon: '🎈',
-  ballon: '🎈', // Party balloon
+  ballon: '🎈',
 
   // Weather
   rain: '🌧️',
@@ -186,9 +189,9 @@ const emojiDictionary: Record<string, string> = {
   lire: '📖',
   write: '✍️',
   ecrire: '✍️',
-  eat: '😋', // Or use specific food emojis
+  eat: '😋',
   manger: '😋',
-  drink: '🥤', // Or specific drink emojis
+  drink: '🥤',
   boire: '🥤',
   run: '🏃',
   courir: '🏃',
