@@ -5,6 +5,8 @@ import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import { Label } from "@/components/ui/label";
+import { Copy } from 'lucide-react';
+import { showSuccess } from '@/utils/toast'; // Import the toast utility
 
 // An extensively expanded dictionary for word-to-emoji translation
 const emojiDictionary: Record<string, string> = {
@@ -367,6 +369,19 @@ const EmojiTranslatorPage = () => {
     }
   };
 
+  const copyToClipboard = () => {
+    if (translatedText) {
+      navigator.clipboard.writeText(translatedText)
+        .then(() => {
+          showSuccess('Emojis copiés dans le presse-papiers !');
+        })
+        .catch(err => {
+          console.error('Erreur lors de la copie : ', err);
+          // Vous pourriez afficher un toast d'erreur ici si nécessaire
+        });
+    }
+  };
+
   return (
     <div className="container mx-auto p-4 flex flex-col items-center">
       <Card className="w-full max-w-md">
@@ -395,7 +410,12 @@ const EmojiTranslatorPage = () => {
             </Button>
             {translatedText && (
               <div className="mt-6">
-                <Label htmlFor="translated-output" className="mb-2 block">Résultat Emoji :</Label>
+                <div className="flex justify-between items-center mb-2">
+                  <Label htmlFor="translated-output" className="block">Résultat Emoji :</Label>
+                  <Button variant="ghost" size="sm" onClick={copyToClipboard} title="Copier les emojis">
+                    <Copy className="h-4 w-4 mr-1" /> Copier
+                  </Button>
+                </div>
                 <Card id="translated-output" className="p-4 bg-secondary">
                   <p className="text-3xl break-words text-center">{translatedText}</p>
                 </Card>
