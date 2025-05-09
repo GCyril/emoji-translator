@@ -18,6 +18,10 @@ export default {
       },
     },
     extend: {
+      fontFamily: {
+        sans: ['"JetBrains Mono"', 'monospace'], // Définit JetBrains Mono comme police sans-serif par défaut
+        mono: ['"JetBrains Mono"', 'monospace'], // Assure que font-mono utilise aussi JetBrains Mono
+      },
       colors: {
         border: "hsl(var(--border))",
         input: "hsl(var(--input))",
