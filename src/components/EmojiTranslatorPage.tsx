@@ -9,35 +9,58 @@ import { Label } from "@/components/ui/label";
 // A simple dictionary for word-to-emoji translation
 const emojiDictionary: Record<string, string> = {
   hello: '👋',
+  bonjour: '👋',
   world: '🌍',
+  monde: '🌍',
   love: '❤️',
+  amour: '❤️',
   happy: '😄',
+  heureux: '😄',
   sad: '😢',
+  triste: '😢',
   cat: '🐱',
+  chat: '🐱',
   dog: '🐶',
+  chien: '🐶',
   sun: '☀️',
+  soleil: '☀️',
   moon: '🌙',
+  lune: '🌙',
   star: '⭐',
+  etoile: '⭐',
   food: '🍕',
+  nourriture: '🍕',
   coffee: '☕',
+  cafe: '☕',
   computer: '💻',
+  ordinateur: '💻',
   code: '💻',
   react: '⚛️',
   cool: '😎',
   fire: '🔥',
+  feu: '🔥',
   party: '🎉',
+  fete: '🎉',
   money: '💰',
+  argent: '💰',
   time: '⏰',
+  temps: '⏰',
   idea: '💡',
+  idee: '💡',
   book: '📚',
+  livre: '📚',
   music: '🎵',
+  musique: '🎵',
   game: '🎮',
+  jeu: '🎮',
   pizza: '🍕',
   burger: '🍔',
   taco: '🌮',
   sushi: '🍣',
   icecream: '🍦',
+  glace: '🍦',
   cake: '🍰',
+  gateau: '🍰',
 };
 
 const EmojiTranslatorPage = () => {
@@ -45,9 +68,8 @@ const EmojiTranslatorPage = () => {
   const [translatedText, setTranslatedText] = useState('');
 
   const translateToEmoji = () => {
-    const words = inputText.toLowerCase().split(/\s+/); // Split by space and convert to lowercase
+    const words = inputText.toLowerCase().split(/\s+/); 
     const translatedWords = words.map(word => {
-      // Remove punctuation for better matching
       const cleanWord = word.replace(/[.,!?]/g, '');
       return emojiDictionary[cleanWord] || word;
     });
@@ -68,33 +90,33 @@ const EmojiTranslatorPage = () => {
     <div className="container mx-auto p-4 flex flex-col items-center">
       <Card className="w-full max-w-md">
         <CardHeader>
-          <CardTitle className="text-2xl font-bold text-center">Emoji Translator</CardTitle>
+          <CardTitle className="text-2xl font-bold text-center">Traducteur d'Emojis</CardTitle>
           <CardDescription className="text-center">
-            Type your text below and see it translated into emojis!
+            Tapez votre texte ci-dessous et voyez-le traduit en emojis !
           </CardDescription>
         </CardHeader>
         <CardContent>
           <div className="space-y-4">
             <div>
-              <Label htmlFor="text-input" className="mb-2 block">Enter text:</Label>
+              <Label htmlFor="text-input" className="mb-2 block">Entrez du texte :</Label>
               <Input
                 id="text-input"
                 type="text"
                 value={inputText}
                 onChange={handleInputChange}
                 onKeyPress={handleKeyPress}
-                placeholder="e.g., Hello world happy cat"
+                placeholder="par exemple, Bonjour monde chat heureux"
                 className="w-full"
               />
             </div>
             <Button onClick={translateToEmoji} className="w-full">
-              Translate to Emoji
+              Traduire en Emoji
             </Button>
             {translatedText && (
               <div className="mt-6">
-                <Label htmlFor="translated-output" className="mb-2 block">Emoji Output:</Label>
+                <Label htmlFor="translated-output" className="mb-2 block">Résultat Emoji :</Label>
                 <Card id="translated-output" className="p-4 bg-secondary">
-                  <p className="text-lg break-words">{translatedText}</p>
+                  <p className="text-3xl break-words text-center">{translatedText}</p>
                 </Card>
               </div>
             )}
