@@ -402,7 +402,7 @@ const EmojiTranslatorPage = () => {
     <div className="container mx-auto p-4 flex flex-col items-center">
       <Card className="w-full max-w-md">
         <CardHeader>
-          <CardTitle className="text-2xl font-bold text-center">Traducteur d'Emojis</CardTitle>
+          <CardTitle className="text-2xl font-bold text-center">Traducteur d’Emojis</CardTitle>
           <CardDescription className="text-center">
             {/* Description removed as requested */}
           </CardDescription>
